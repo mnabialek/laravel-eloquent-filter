@@ -1,0 +1,26 @@
+{
+    "name": "mnabialek/laravel-eloquent-filter",
+    "description": "Allows filtering Eloquent queries by input filters",
+    "require": {
+        "laravel/framework": "5.*"
+    },
+    "keywords": [
+        "laravel",
+        "eloquent",
+        "filter",
+        "input",
+        "request"
+    ],    
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "mnabialek",
+            "email": "gitre@nabialek.org"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Mnabialek\\LaravelEloquentFilter\\": "src/"
+        }
+    }
+}

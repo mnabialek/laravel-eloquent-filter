@@ -8,7 +8,7 @@ use Mnabialek\LaravelEloquentFilter\Filter;
 use Mnabialek\LaravelEloquentFilter\Contracts\InputParser;
 use Mnabialek\LaravelEloquentFilter\Sort;
 
-class DefaultQueryParser implements InputParser
+class SimpleQueryParser implements InputParser
 {
     /**
      * @var Request
@@ -42,7 +42,7 @@ class DefaultQueryParser implements InputParser
     protected $collection;
 
     /**
-     * DefaultQueryParser constructor.
+     * SimpleQueryParser constructor.
      *
      * @param Request $request
      * @param Collection $collection

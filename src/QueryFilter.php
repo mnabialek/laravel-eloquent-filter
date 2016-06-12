@@ -48,12 +48,12 @@ class QueryFilter implements Contracts\QueryFilter
      * @var array
      */
     protected $simpleSorts = [];
-    
+
     /**
      * @var InputParser
      */
     protected $parser;
-    
+
     /**
      * @var Collection
      */
@@ -95,18 +95,15 @@ class QueryFilter implements Contracts\QueryFilter
         $this->conditions->each(function ($condition) {
             /** @var Condition $condition */
             $field = $condition->getField();
+            $method = $this->getFilterMethod($field);
 
-            if (in_array($field, $this->simpleConditions)) {
+            if (method_exists($this, $method)) {
+                $this->$method($condition->getValue(),
+                    $condition->getOperator());
+                $this->appliedConditions->push($field);
+            } elseif (in_array($field, $this->simpleConditions)) {
                 $this->applySimpleCondition($condition);
                 $this->appliedConditions->push($field);
-            } else {
-                $method = $this->getFilterMethod($field);
-
-                if (method_exists($this, $method)) {
-                    $this->$method($condition->getValue(),
-                        $condition->getOperator());
-                    $this->appliedConditions->push($field);
-                }
             }
         });
 
@@ -125,17 +122,14 @@ class QueryFilter implements Contracts\QueryFilter
         $this->sorts->each(function ($sort) {
             /** @var Sort $sort */
             $field = $sort->getField();
+            $method = $this->getSortMethod($field);
 
-            if (in_array($field, $this->simpleSorts)) {
+            if (method_exists($this, $method)) {
+                $this->$method($sort->getOrder());
+                $this->appliedSorts->push($field);
+            } elseif (in_array($field, $this->simpleSorts)) {
                 $this->applySimpleSort($sort);
                 $this->appliedSorts->push($field);
-            } else {
-                $method = $this->getSortMethod($field);
-
-                if (method_exists($this, $method)) {
-                    $this->$method($sort->getOrder());
-                    $this->appliedSorts->push($field);
-                }
             }
         });
 

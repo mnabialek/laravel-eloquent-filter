@@ -18,7 +18,7 @@ This module lets you filter Eloquent data using query filters. You can apply WHE
 Let's assume you want to allow to filter users data. By default you use `User` Eloquent model to get users. To enable filtering, open User model (by default `app/User.php` file) and add into it the following trait:
 
 ```php
-   use Mnabialek\LaravelEloquentFilter\Traits\Filterable;
+use Mnabialek\LaravelEloquentFilter\Traits\Filterable;
 ```
    
 just bellow opening class definition, so it should look something like this:
@@ -77,7 +77,7 @@ Although you can create custom parsers and filters, some default ones are provid
 
 By default you can pass to your url conditions using field with value for example `id=5` and you can apply sorting using `sort` parameter with names of fields separated by comma. If you precede field by `-` sign, it will assume you want to sort by this field in descending order.
 
-When implementing your filter class when you extend `SimpleQueryParser` in `$simpleFilters` and `$simpleSorts` you can specify any fields that might be filtered and sorted without any custom implementation. For those fields simple `=` comparison will be used and in case of array usage (for example `id[]=2&id[]=5` it will be assumed you want to get data with `OR` operator.
+When implementing your filter class when you extend `SimpleQueryParser` in `$simpleFilters` and `$simpleSorts` you can specify any fields that might be filtered and sorted without any custom implementation. For those fields simple `=` comparison will be used and in case of array usage (for example `id[]=2&id[]=5` it will be assumed you want to get data with logical `OR` operator.
 
 However in real life you might want to specify custom filter or sort method. To do that, you need to implement your custom method for such field for example:
 

@@ -4,7 +4,7 @@ namespace Mnabialek\LaravelEloquentFilter;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
-use Mnabialek\LaravelEloquentFilter\Contracts\Condition;
+use Mnabialek\LaravelEloquentFilter\Contracts\Filter;
 use Mnabialek\LaravelEloquentFilter\Contracts\InputParser;
 use Mnabialek\LaravelEloquentFilter\Contracts\Sort;
 
@@ -13,7 +13,7 @@ class QueryFilter implements Contracts\QueryFilter
     /**
      * @var Collection
      */
-    protected $conditions;
+    protected $filters;
 
     /**
      * @var Collection
@@ -23,7 +23,7 @@ class QueryFilter implements Contracts\QueryFilter
     /**
      * @var Collection
      */
-    protected $appliedConditions;
+    protected $appliedFilters;
 
     /**
      * @var Collection
@@ -36,11 +36,11 @@ class QueryFilter implements Contracts\QueryFilter
     protected $query;
 
     /**
-     * Array of allowed conditions to be used
+     * Array of allowed filters to be used
      *
      * @var array
      */
-    protected $simpleConditions = [];
+    protected $simpleFilters = [];
 
     /**
      * Array of allowed sorting to be used
@@ -69,9 +69,9 @@ class QueryFilter implements Contracts\QueryFilter
     {
         $this->parser = $parser;
         $this->collection = $collection;
-        $this->conditions = $parser->getConditions();
+        $this->filters = $parser->getFilters();
         $this->sorts = $parser->getSorts();
-        $this->appliedConditions = $collection->make();
+        $this->appliedFilters = $collection->make();
         $this->appliedSorts = $collection->make();
     }
 
@@ -92,18 +92,18 @@ class QueryFilter implements Contracts\QueryFilter
     {
         $this->query = $query;
 
-        $this->conditions->each(function ($condition) {
-            /** @var Condition $condition */
-            $field = $condition->getField();
+        $this->filters->each(function ($filter) {
+            /** @var Filter $filter */
+            $field = $filter->getField();
             $method = $this->getFilterMethod($field);
 
             if (method_exists($this, $method)) {
-                $this->$method($condition->getValue(),
-                    $condition->getOperator());
-                $this->appliedConditions->push($field);
-            } elseif (in_array($field, $this->simpleConditions)) {
-                $this->applySimpleCondition($condition);
-                $this->appliedConditions->push($field);
+                $this->$method($filter->getValue(),
+                    $filter->getOperator());
+                $this->appliedFilters->push($field);
+            } elseif (in_array($field, $this->simpleFilters)) {
+                $this->applySimpleFilter($filter);
+                $this->appliedFilters->push($field);
             }
         });
 
@@ -164,7 +164,7 @@ class QueryFilter implements Contracts\QueryFilter
 
     /**
      * Apply default filters after applying any other filters. In this method
-     * you can use $appliedConditions property to verify whether filter for
+     * you can use $appliedFilters property to verify whether filter for
      * selected field has been already applied or not
      */
     protected function applyDefaultFilters()
@@ -181,18 +181,18 @@ class QueryFilter implements Contracts\QueryFilter
     }
 
     /**
-     * Apply simple condition
+     * Apply simple filter
      *
-     * @param Condition $condition
+     * @param Filter $filter
      */
-    protected function applySimpleCondition(Condition $condition)
+    protected function applySimpleFilter(Filter $filter)
     {
-        $value = $condition->getValue();
+        $value = $filter->getValue();
         if (is_array($value)) {
-            $this->query->whereIn($condition->getField(), $value);
+            $this->query->whereIn($filter->getField(), $value);
         } else {
-            $this->query->where($condition->getField(),
-                $condition->getOperator(), $value);
+            $this->query->where($filter->getField(),
+                $filter->getOperator(), $value);
         }
     }
 

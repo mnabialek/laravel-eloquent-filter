@@ -2,7 +2,9 @@
 
 namespace Mnabialek\LaravelEloquentFilter;
 
-class Condition implements \Mnabialek\LaravelEloquentFilter\Contracts\Condition
+use Mnabialek\LaravelEloquentFilter\Contracts\Filter as FilterContract;
+
+class Filter implements FilterContract
 {
     /**
      * Field

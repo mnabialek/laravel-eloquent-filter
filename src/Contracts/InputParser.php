@@ -7,11 +7,11 @@ use Illuminate\Support\Collection;
 interface InputParser
 {
     /**
-     * Get conditions
+     * Get filters
      *
      * @return Collection
      */
-    public function getConditions();
+    public function getFilters();
 
     /**
      * Get parameters for sorting

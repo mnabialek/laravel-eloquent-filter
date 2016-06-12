@@ -4,7 +4,7 @@ namespace Mnabialek\LaravelEloquentFilter\Parsers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use Mnabialek\LaravelEloquentFilter\Condition;
+use Mnabialek\LaravelEloquentFilter\Filter;
 use Mnabialek\LaravelEloquentFilter\Contracts\InputParser;
 use Mnabialek\LaravelEloquentFilter\Sort;
 
@@ -54,25 +54,25 @@ class DefaultQueryParser implements InputParser
     }
 
     /**
-     * Get conditions
+     * Get filters
      *
      * @return Collection
      */
-    public function getConditions()
+    public function getFilters()
     {
         $input = $this->collection->make(
             $this->request->except($this->sortName));
 
-        $conditions = $this->collection->make();
+        $filters = $this->collection->make();
 
-        $input->each(function ($value, $field) use ($conditions) {
-            $condition = new Condition();
-            $condition->setField($field);
-            $condition->setValue($value);
-            $conditions->push($condition);
+        $input->each(function ($value, $field) use ($filters) {
+            $filter = new Filter();
+            $filter->setField($field);
+            $filter->setValue($value);
+            $filters->push($filter);
         });
 
-        return $conditions;
+        return $filters;
     }
 
     /**

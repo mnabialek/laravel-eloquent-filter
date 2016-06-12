@@ -2,45 +2,45 @@
 
 namespace Mnabialek\LaravelEloquentFilter\Contracts;
 
-interface Condition
+interface Filter
 {
     /**
-     * Get condition field
+     * Get filter field
      *
      * @return string
      */
     public function getField();
 
     /**
-     * Set condition field
+     * Set filter field
      *
      * @param string $field
      */
     public function setField($field);
 
     /**
-     * Get condition operator
+     * Get filter operator
      *
      * @return string
      */
     public function getOperator();
 
     /**
-     * Set condition operator
+     * Set filter operator
      *
      * @param string $operator
      */
     public function setOperator($operator);
 
     /**
-     * Get field value
+     * Get filter field value
      *
      * @return mixed
      */
     public function getValue();
 
     /**
-     * Set field value
+     * Set filter field value
      *
      * @param mixed $value
      */

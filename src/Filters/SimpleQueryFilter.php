@@ -6,7 +6,7 @@ use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\Collection;
 use Mnabialek\LaravelEloquentFilter\Parsers\SimpleQueryParser;
 
-class SimpleQueryFilter extends QueryFilter
+abstract class SimpleQueryFilter extends QueryFilter
 {
     /**
      * SimpleQueryFilter constructor.

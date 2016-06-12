@@ -1,14 +1,16 @@
 <?php
 
-namespace Mnabialek\LaravelEloquentFilter;
+namespace Mnabialek\LaravelEloquentFilter\Filters;
 
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Mnabialek\LaravelEloquentFilter\Contracts\Filter;
 use Mnabialek\LaravelEloquentFilter\Contracts\InputParser;
+use Mnabialek\LaravelEloquentFilter\Contracts\QueryFilter as QueryFilterContract;
 use Mnabialek\LaravelEloquentFilter\Contracts\Sort;
 
-class QueryFilter implements Contracts\QueryFilter
+abstract class QueryFilter implements QueryFilterContract
 {
     /**
      * @var Collection
@@ -58,21 +60,31 @@ class QueryFilter implements Contracts\QueryFilter
      * @var Collection
      */
     protected $collection;
+    
+    /**
+     * @var Container
+     */
+    protected $app;
 
     /**
      * QueryFilter constructor.
      *
      * @param InputParser $parser
      * @param Collection $collection
+     * @param Container $app
      */
-    public function __construct(InputParser $parser, Collection $collection)
-    {
+    public function __construct(
+        InputParser $parser,
+        Collection $collection,
+        Container $app
+    ) {
         $this->parser = $parser;
         $this->collection = $collection;
         $this->filters = $parser->getFilters();
         $this->sorts = $parser->getSorts();
         $this->appliedFilters = $collection->make();
         $this->appliedSorts = $collection->make();
+        $this->app = $app;
     }
 
     /**

@@ -16,7 +16,7 @@ interface QueryFilter
     public function apply($query);
 
     /**
-     * Apply query filters only to given query
+     * Apply condition filters only to given query
      *
      * @param Builder $query
      *

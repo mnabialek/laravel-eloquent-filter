@@ -99,9 +99,9 @@ class SimpleQueryParser implements InputParser
 
             $s->setField($field);
             $s->setOrder($order);
-            $sorts->push($s);
+            $sorts->put($field, $s);
         });
 
-        return $sorts;
+        return $sorts->values();
     }
 }

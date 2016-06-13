@@ -82,9 +82,11 @@ class SimpleQueryParser implements InputParser
      */
     public function getSorts()
     {
-        $sortFields = $this->collection->make(explode(
-            $this->sortFieldsSeparator,
-            $this->request->input($this->sortName, '')));
+        $sortInput = $this->request->input($this->sortName, '');
+
+        $sortFields = $this->collection->make(
+            is_array($sortInput) ? $sortInput :
+                explode($this->sortFieldsSeparator, $sortInput));
 
         $sorts = $this->collection->make();
 
@@ -97,9 +99,11 @@ class SimpleQueryParser implements InputParser
                 $field = mb_substr($field, mb_strlen($this->sortDescSign));
             }
 
-            $s->setField($field);
-            $s->setOrder($order);
-            $sorts->put($field, $s);
+            if ($field = trim($field)) {
+                $s->setField($field);
+                $s->setOrder($order);
+                $sorts->put($field, $s);
+            }
         });
 
         return $sorts->values();

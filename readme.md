@@ -7,7 +7,7 @@ This module lets you filter Eloquent data using query filters. You can apply WHE
 
 1. Run
    ```php   
-   composer require mnabialek/laravel-eloquent-filte
+   composer require mnabialek/laravel-eloquent-filter
    ```     
    in console to install this module
    

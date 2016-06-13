@@ -28,6 +28,20 @@ class Filter implements FilterContract
     protected $value;
 
     /**
+     * Filter constructor.
+     *
+     * @param string|null $field
+     * @param mixed $value
+     * @param string|null $operator
+     */
+    public function __construct($field = null, $value = null, $operator = null)
+    {
+        $this->setField($field);
+        $this->setValue($value);
+        $this->setOperator($operator);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getField()

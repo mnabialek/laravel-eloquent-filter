@@ -17,6 +17,18 @@ class Sort implements Contracts\Sort
      * @var string
      */
     protected $order;
+
+    /**
+     * Sort constructor.
+     *
+     * @param string|null $field
+     * @param string|null $order
+     */
+    public function __construct($field = null, $order = null)
+    {
+        $this->setField($field);
+        $this->setOrder($order);
+    }
     
     /**
      * {@inheritdoc}

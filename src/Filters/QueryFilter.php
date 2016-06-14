@@ -199,12 +199,12 @@ abstract class QueryFilter implements QueryFilterContract
      */
     protected function applySimpleFilter(Filter $filter)
     {
-        $value = $filter->getValue();
-        if (is_array($value)) {
+        $value = (array) $filter->getValue();
+        if (count($value) > 1) {
             $this->query->whereIn($filter->getField(), $value);
         } else {
             $this->query->where($filter->getField(),
-                $filter->getOperator(), $value);
+                $filter->getOperator(), $value[0]);
         }
     }
 

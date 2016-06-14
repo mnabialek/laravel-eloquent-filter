@@ -3,9 +3,9 @@
 namespace Mnabialek\LaravelEloquentFilter\Tests;
 
 use Illuminate\Support\Collection;
-use Mnabialek\LaravelEloquentFilter\Filter;
+use Mnabialek\LaravelEloquentFilter\Objects\Filter;
 use Mnabialek\LaravelEloquentFilter\Parsers\SimpleQueryParser;
-use Mnabialek\LaravelEloquentFilter\Sort;
+use Mnabialek\LaravelEloquentFilter\Objects\Sort;
 use Mockery as m;
 
 class SimpleQueryParserTest extends UnitTestCase

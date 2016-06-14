@@ -1,8 +1,10 @@
 <?php
 
-namespace Mnabialek\LaravelEloquentFilter;
+namespace Mnabialek\LaravelEloquentFilter\Objects;
 
-class Sort implements Contracts\Sort
+use Mnabialek\LaravelEloquentFilter\Contracts\Sort as SortContract;
+
+class Sort implements SortContract
 {
     /**
      * Sort field

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mnabialek\LaravelEloquentFilter;
+namespace Mnabialek\LaravelEloquentFilter\Objects;
 
 use Mnabialek\LaravelEloquentFilter\Contracts\Filter as FilterContract;
 

@@ -37,6 +37,13 @@ class SimpleQueryParser implements InputParser
     protected $sortDescSign = '-';
 
     /**
+     * Ignore filters with empty values
+     *
+     * @var bool
+     */
+    protected $ignoreEmptyFilters = false;
+
+    /**
      * @var Collection
      */
     protected $collection;
@@ -65,7 +72,15 @@ class SimpleQueryParser implements InputParser
 
         $filters = $this->collection->make();
 
-        $input->each(function ($value, $field) use ($filters) {
+        $input->filter(function ($value) {
+            if ($this->ignoreEmptyFilters && is_string($value) &&
+                (string)$value == ''
+            ) {
+                return false;
+            }
+
+            return true;
+        })->each(function ($value, $field) use ($filters) {
             $filter = new Filter();
             $filter->setField($field);
             $filter->setValue($value);

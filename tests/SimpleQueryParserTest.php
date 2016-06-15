@@ -14,7 +14,7 @@ class SimpleQueryParserTest extends UnitTestCase
     public function it_returns_empty_filters_when_empty_request()
     {
         $request = m::mock('Illuminate\Http\Request');
-        $request->shouldReceive('except')->once()->with('sort')->andReturn([]);
+        $request->shouldReceive('except')->once()->with(['sort'])->andReturn([]);
 
         $parser = new SimpleQueryParser($request, new Collection());
         $this->assertEquals(new Collection(), $parser->getFilters());
@@ -24,7 +24,7 @@ class SimpleQueryParserTest extends UnitTestCase
     public function it_returns_valid_filters_when_not_empty_request()
     {
         $request = m::mock('Illuminate\Http\Request');
-        $request->shouldReceive('except')->once()->with('sort')->andReturn([
+        $request->shouldReceive('except')->once()->with(['sort'])->andReturn([
             'id' => 5,
             'email' => '  test@example.com ',
             'something' => ['  foo  ', 'bar', 'baz'],
@@ -44,7 +44,7 @@ class SimpleQueryParserTest extends UnitTestCase
     public function it_include_filter_with_empty_value_when_empty_value()
     {
         $request = m::mock('Illuminate\Http\Request');
-        $request->shouldReceive('except')->once()->with('sort')->andReturn([
+        $request->shouldReceive('except')->once()->with(['sort'])->andReturn([
             'id' => '',
             'email' => '  test@example.com ',
             'something' => ['  foo  ', 'bar', 'baz'],
@@ -64,7 +64,7 @@ class SimpleQueryParserTest extends UnitTestCase
     public function it_doest_not_include_filter_with_empty_value_when_empty_value_with_property_set()
     {
         $request = m::mock('Illuminate\Http\Request');
-        $request->shouldReceive('except')->once()->with('sort')->andReturn([
+        $request->shouldReceive('except')->once()->with(['sort'])->andReturn([
             'id' => '',
             'email' => '  test@example.com ',
             'something' => ['  foo  ', 'bar', 'baz'],

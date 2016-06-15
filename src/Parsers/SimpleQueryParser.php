@@ -8,13 +8,8 @@ use Mnabialek\LaravelEloquentFilter\Objects\Filter;
 use Mnabialek\LaravelEloquentFilter\Contracts\InputParser;
 use Mnabialek\LaravelEloquentFilter\Objects\Sort;
 
-class SimpleQueryParser implements InputParser
+class SimpleQueryParser extends QueryParser implements InputParser
 {
-    /**
-     * @var Request
-     */
-    protected $request;
-
     /**
      * Name of input that holds sorting order
      *
@@ -37,18 +32,6 @@ class SimpleQueryParser implements InputParser
     protected $sortDescSign = '-';
 
     /**
-     * Ignore filters with empty values
-     *
-     * @var bool
-     */
-    protected $ignoreEmptyFilters = false;
-
-    /**
-     * @var Collection
-     */
-    protected $collection;
-
-    /**
      * SimpleQueryParser constructor.
      *
      * @param Request $request
@@ -56,8 +39,8 @@ class SimpleQueryParser implements InputParser
      */
     public function __construct(Request $request, Collection $collection)
     {
-        $this->request = $request;
-        $this->collection = $collection;
+        parent::__construct($request, $collection);
+        $this->addIgnoredFilter($this->sortName);
     }
 
     /**
@@ -68,7 +51,7 @@ class SimpleQueryParser implements InputParser
     public function getFilters()
     {
         $input = $this->collection->make(
-            $this->request->except($this->sortName));
+            $this->request->except($this->getIgnoredFilters()));
 
         $filters = $this->collection->make();
 

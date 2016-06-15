@@ -14,7 +14,8 @@ class SimpleQueryParserTest extends UnitTestCase
     public function it_returns_empty_filters_when_empty_request()
     {
         $request = m::mock('Illuminate\Http\Request');
-        $request->shouldReceive('except')->once()->with(['sort'])->andReturn([]);
+        $request->shouldReceive('except')->once()->with(['sort'])
+            ->andReturn([]);
 
         $parser = new SimpleQueryParser($request, new Collection());
         $this->assertEquals(new Collection(), $parser->getFilters());
@@ -31,9 +32,9 @@ class SimpleQueryParserTest extends UnitTestCase
         ]);
 
         $filters = new Collection([
-            new Filter('id', 5),
-            new Filter('email', '  test@example.com '),
-            new Filter('something', ['  foo  ', 'bar', 'baz']),
+            new Filter('id', 5, '='),
+            new Filter('email', '  test@example.com ', '='),
+            new Filter('something', ['  foo  ', 'bar', 'baz'], '='),
         ]);
 
         $parser = new SimpleQueryParser($request, new Collection());
@@ -51,9 +52,9 @@ class SimpleQueryParserTest extends UnitTestCase
         ]);
 
         $filters = new Collection([
-            new Filter('id', ''),
-            new Filter('email', '  test@example.com '),
-            new Filter('something', ['  foo  ', 'bar', 'baz']),
+            new Filter('id', '', '='),
+            new Filter('email', '  test@example.com ', '='),
+            new Filter('something', ['  foo  ', 'bar', 'baz'], '='),
         ]);
 
         $parser = new SimpleQueryParser($request, new Collection());
@@ -61,7 +62,8 @@ class SimpleQueryParserTest extends UnitTestCase
     }
 
     /** @test */
-    public function it_doest_not_include_filter_with_empty_value_when_empty_value_with_property_set()
+    public function it_doest_not_include_filter_with_empty_value_when_empty_value_with_property_set(
+    )
     {
         $request = m::mock('Illuminate\Http\Request');
         $request->shouldReceive('except')->once()->with(['sort'])->andReturn([
@@ -71,8 +73,8 @@ class SimpleQueryParserTest extends UnitTestCase
         ]);
 
         $filters = new Collection([
-            new Filter('email', '  test@example.com '),
-            new Filter('something', ['  foo  ', 'bar', 'baz']),
+            new Filter('email', '  test@example.com ', '='),
+            new Filter('something', ['  foo  ', 'bar', 'baz'], '='),
         ]);
 
         $parser = new IgnoreEmptyQueryParser($request, new Collection());

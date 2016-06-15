@@ -72,4 +72,19 @@ abstract class QueryParser
     {
         return '=';
     }
+
+    /**
+     * Filter empty values from collection if empty filtering is enabled
+     *
+     * @param Collection $input
+     *
+     * @return Collection
+     */
+    protected function filterEmptyValues(Collection $input)
+    {
+        return !$this->ignoreEmptyFilters ? $input :
+            $input->reject(function ($value) {
+                return empty($value);
+        });
+    }
 }

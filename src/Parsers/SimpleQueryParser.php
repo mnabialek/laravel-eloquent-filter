@@ -55,20 +55,11 @@ class SimpleQueryParser extends QueryParser implements InputParser
 
         $filters = $this->collection->make();
 
-        $input->filter(function ($value) {
-            if ($this->ignoreEmptyFilters && is_string($value) &&
-                (string)$value == ''
-            ) {
-                return false;
-            }
-
-            return true;
-        })->each(function ($value, $field) use ($filters) {
-            $filter = new Filter();
-            $filter->setField($field);
-            $filter->setValue($value);
-            $filters->push($filter);
-        });
+        $this->filterEmptyValues($input)
+            ->each(function ($value, $field) use ($filters) {
+                $filters->push(new Filter($field, $value,
+                    $this->getDefaultOperator()));
+            });
 
         return $filters;
     }
@@ -89,7 +80,6 @@ class SimpleQueryParser extends QueryParser implements InputParser
         $sorts = $this->collection->make();
 
         $sortFields->each(function ($field) use ($sorts) {
-            $s = new Sort();
             $order = 'ASC';
 
             if (starts_with($field, $this->sortDescSign)) {
@@ -98,9 +88,7 @@ class SimpleQueryParser extends QueryParser implements InputParser
             }
 
             if ($field = trim($field)) {
-                $s->setField($field);
-                $s->setOrder($order);
-                $sorts->put($field, $s);
+                $sorts->put($field, new Sort($field, $order));
             }
         });
 

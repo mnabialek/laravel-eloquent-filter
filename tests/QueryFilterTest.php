@@ -42,6 +42,9 @@ class QueryFilterTest extends UnitTestCase
 
         $filter = $this->createFilterMock('EmptyQueryFilter');
 
+        $filter->shouldReceive('getBaseQuery')->once()->with($this->query)
+            ->andReturn($this->query);
+
         $filter->shouldReceive('applyDefaultFilters')->once()->withNoArgs()
             ->passthru();
         $filter->shouldNotReceive('applySimpleFilter');
@@ -72,9 +75,9 @@ class QueryFilterTest extends UnitTestCase
                 $statusFilter,
             ]));
         $this->parser->shouldReceive('getSorts')->once();
-        
+
         $filter = $this->createFilterMock('NotEmptyQueryFilter');
-        
+
         $filter->shouldReceive('applyId')->with($idFilter->getValue());
         $filter->shouldReceive('applySimpleFilter')->once()->with($emailFilter)
             ->passthru();
@@ -140,9 +143,9 @@ class QueryFilterTest extends UnitTestCase
             $surnameSort,
             $otherSort,
         ]));
-        
+
         $filter = $this->createFilterMock('NotEmptyQueryFilter');
-        
+
         $filter->shouldReceive('applySortCreatedAt')
             ->with($createdAtSort->getOrder());
         $filter->shouldReceive('applySimpleSort')->once()->with($nameSort)
@@ -182,7 +185,7 @@ class QueryFilterTest extends UnitTestCase
         $filter->__construct($this->parser, collect(), $this->app);
 
         return $filter;
-    }    
+    }
 }
 
 // stubs

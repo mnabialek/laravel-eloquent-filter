@@ -60,7 +60,7 @@ abstract class QueryFilter implements QueryFilterContract
      * @var Collection
      */
     protected $collection;
-    
+
     /**
      * @var Container
      */
@@ -102,7 +102,7 @@ abstract class QueryFilter implements QueryFilterContract
      */
     public function applyFilters($query)
     {
-        $this->query = $query;
+        $this->query = $this->getBaseQuery($query);
 
         $this->filters->each(function ($filter) {
             /** @var Filter $filter */
@@ -148,6 +148,18 @@ abstract class QueryFilter implements QueryFilterContract
         $this->applyDefaultSorts();
 
         return $this->query;
+    }
+
+    /**
+     * Get base query
+     *
+     * @param Builder $query
+     *
+     * @return Builder
+     */
+    protected function getBaseQuery($query)
+    {
+        return $query;
     }
 
     /**
@@ -199,7 +211,7 @@ abstract class QueryFilter implements QueryFilterContract
      */
     protected function applySimpleFilter(Filter $filter)
     {
-        $value = (array) $filter->getValue();
+        $value = (array)$filter->getValue();
         if (count($value) > 1) {
             $this->query->whereIn($filter->getField(), $value);
         } else {

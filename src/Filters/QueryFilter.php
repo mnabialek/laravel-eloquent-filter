@@ -211,13 +211,9 @@ abstract class QueryFilter implements QueryFilterContract
      */
     protected function applySimpleFilter(Filter $filter)
     {
-        $value = (array)$filter->getValue();
-        if (count($value) > 1) {
-            $this->query->whereIn($filter->getField(), $value);
-        } else {
-            $this->query->where($filter->getField(),
-                $filter->getOperator(), $value[0]);
-        }
+        count((array)$filter->getValue()) > 1 ?
+            $this->applyMultiValuesFilter($filter) :
+            $this->applySingleValueFilter($filter);
     }
 
     /**
@@ -228,5 +224,79 @@ abstract class QueryFilter implements QueryFilterContract
     protected function applySimpleSort(Sort $sort)
     {
         $this->query->orderBy($sort->getField(), $sort->getOrder());
+    }
+
+    /**
+     * Applies filter for muitple values filter
+     *
+     * @param Filter $filter
+     */    
+    protected function applyMultiValuesFilter(Filter $filter)
+    {
+        $field = $filter->getField();
+        $operator = strtoupper($filter->getOperator());
+
+        $values = $this->getQueryValues($filter->getValue(), $operator);
+
+        switch ($operator) {
+            case '=':
+                $this->query->whereIn($field, $values);
+                break;
+            default:
+                $function = $operator == 'LIKE' ? 'orWhere' : 'where';
+                $this->query->where(function ($q) use (
+                    $field,
+                    $operator,
+                    $values,
+                    $function
+                ) {
+                    foreach ($values as $value) {
+                        $q->$function($field, $operator, $value);
+                    }
+                });
+                break;
+        }
+    }
+
+    /**
+     * Applies filter for single value filter
+     *
+     * @param Filter $filter
+     */
+    protected function applySingleValueFilter(Filter $filter)
+    {
+        $value = ((array) $filter->getValue())[0];
+        $operator = strtoupper($filter->getOperator());
+        
+        $this->query->where($filter->getField(), $operator,
+            $this->getQueryValue($value, $operator));
+    }
+
+    /**
+     * Get value for query for given value
+     *
+     * @param mixed $value
+     * @param string $operator
+     *
+     * @return string
+     */
+    protected function getQueryValue($value, $operator)
+    {
+        return ($operator == 'LIKE') ? '%' . $value . '%' : $value;
+    }
+
+    /**
+     * Get values for query for given values
+     *
+     * @param array $values
+     * @param string $operator
+     *
+     * @return array
+     */
+    protected function getQueryValues(array $values, $operator)
+    {
+        return collect($values)->map(function ($value) use ($operator) {
+            return $this->getQueryValue($value, $operator);
+        })->values()->all();
     }
 }

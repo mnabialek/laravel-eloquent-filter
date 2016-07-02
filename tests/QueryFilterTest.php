@@ -65,6 +65,9 @@ class QueryFilterTest extends UnitTestCase
         $roleFilter = new Filter('role', 'admin');
         $statusFilter = new Filter('status', ['pending']);
         $otherFilter = new Filter('something', 'else');
+        $likeFilter = new Filter('likefield', 'anothervalue', 'LiKe');
+        $multiLikeFilter = new Filter('multilikefield', ['1st', '2nd'], 'LiKe');
+        $multiOperatorFilter = new Filter('multiopfield', ['1st', '2nd'], '!=');
 
         $this->parser->shouldReceive('getFilters')->once()
             ->andReturn(collect([
@@ -73,6 +76,9 @@ class QueryFilterTest extends UnitTestCase
                 $emailFilter,
                 $otherFilter,
                 $statusFilter,
+                $likeFilter,
+                $multiLikeFilter,
+                $multiOperatorFilter,
             ]));
         $this->parser->shouldReceive('getSorts')->once();
 
@@ -85,6 +91,12 @@ class QueryFilterTest extends UnitTestCase
             ->passthru();
         $filter->shouldReceive('applySimpleFilter')->once()->with($statusFilter)
             ->passthru();
+        $filter->shouldReceive('applySimpleFilter')->once()->with($likeFilter)
+            ->passthru();
+        $filter->shouldReceive('applySimpleFilter')->once()
+            ->with($multiLikeFilter)->passthru();
+        $filter->shouldReceive('applySimpleFilter')->once()
+            ->with($multiOperatorFilter)->passthru();
 
         $filter->shouldNotReceive('applySomething');
         $filter->shouldNotReceive('applySimpleFilter')->with($otherFilter);
@@ -97,13 +109,66 @@ class QueryFilterTest extends UnitTestCase
         $this->query->shouldReceive('where')->once()
             ->with($statusFilter->getField(), $statusFilter->getOperator(),
                 $statusFilter->getValue()[0]);
+        $this->query->shouldReceive('where')->once()
+            ->with($likeFilter->getField(),
+                strtoupper($likeFilter->getOperator()),
+                '%' . $likeFilter->getValue() . '%');
+
+        $qMock = m::mock('stdClass');
+        
+        // this is tricky - we mark this as matched expectation only for 1st
+        // call and only for 1st call we call user function
+        $executed = false;
+        $nestedMultiLike = m::on(function ($callback) use ($qMock, &$executed) {
+            $result = ($executed === false);
+            if ($result) {
+                call_user_func($callback, $qMock);
+                $executed = true;
+            }
+            return $result;
+        });
+
+        $qMock->shouldReceive('orWhere')->with($multiLikeFilter->getField(),
+            strtoupper($multiLikeFilter->getOperator()),
+            '%' . $multiLikeFilter->getValue()[0] . '%');
+        $qMock->shouldReceive('orWhere')->with($multiLikeFilter->getField(),
+            strtoupper($multiLikeFilter->getOperator()),
+            '%' . $multiLikeFilter->getValue()[1] . '%');
+
+        $this->query->shouldReceive('where')->once()->with($nestedMultiLike);
+
+        // here we can make it simpler than in 1st case because we have no more
+        // closures
+        $qMock2 = m::mock('stdClass2');
+        $nestedMultiOperator = m::on(function ($callback) use ($qMock2) {
+            call_user_func($callback, $qMock2);
+
+            return true;
+        });
+
+        $qMock2->shouldReceive('where')->with($multiOperatorFilter->getField(),
+            $multiOperatorFilter->getOperator(),
+            $multiOperatorFilter->getValue()[0]);
+        $qMock2->shouldReceive('where')->with($multiOperatorFilter->getField(),
+            strtoupper($multiOperatorFilter->getOperator()),
+            $multiOperatorFilter->getValue()[1]);
+
+        $this->query->shouldReceive('where')->once()->with($nestedMultiOperator);
 
         $filter->shouldReceive('applyDefaultFilters')->once()
             ->withNoArgs()->passthru();
 
         $filter->applyFilters($this->query);
 
-        $this->assertEquals(collect(['id', 'role', 'email', 'status']),
+        $this->assertEquals(collect([
+            'id',
+            'role',
+            'email',
+            'status',
+            'likefield',
+            'multilikefield',
+            'multiopfield',
+        ]),
             $filter->getAppliedFilters());
     }
 
@@ -205,7 +270,15 @@ class EmptyQueryFilter extends QueryFilter
 
 class NotEmptyQueryFilter extends QueryFilter
 {
-    protected $simpleFilters = ['id', 'email', 'role', 'status'];
+    protected $simpleFilters = [
+        'id',
+        'email',
+        'role',
+        'status',
+        'likefield',
+        'multilikefield',
+        'multiopfield',
+    ];
 
     protected $simpleSorts = ['created_at', 'name', 'surname'];
 

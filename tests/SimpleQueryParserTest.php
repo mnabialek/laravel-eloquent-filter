@@ -93,7 +93,7 @@ class SimpleQueryParserTest extends UnitTestCase
     }
 
     /** @test */
-    public function it_returns_valid_sorts_when_empty_request()
+    public function it_returns_valid_sorts_when_not_empty_request()
     {
         $request = m::mock('Illuminate\Http\Request');
         $request->shouldReceive('input')->once()

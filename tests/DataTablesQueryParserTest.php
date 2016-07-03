@@ -224,7 +224,7 @@ class DataTablesQueryParserTest extends UnitTestCase
                 [
                     'column' => 4,
                     'dir' => 'desc',
-                ]                
+                ],
             ]);
 
         $request->shouldReceive('input')->once()
@@ -242,6 +242,25 @@ class DataTablesQueryParserTest extends UnitTestCase
 
         $parser = new DataTablesQueryParser($request, new Collection());
         $this->assertEquals($sorts, $parser->getSorts());
+    }
+
+    /** @test */
+    public function it_sets_new_data_tables_filter_operator()
+    {
+        $request = m::mock('Illuminate\Http\Request');
+
+        $parser =
+            new class($request, new Collection()) extends DataTablesQueryParser
+            {
+                public function getDataTablesFilterOperator()
+                {
+                    return $this->dataTablesFilterOperator;
+                }
+            };
+
+        $this->assertEquals('LIKE', $parser->getDataTablesFilterOperator());
+        $parser->setDataTablesFilterOperator('=');
+        $this->assertEquals('=', $parser->getDataTablesFilterOperator());
     }
 }
 

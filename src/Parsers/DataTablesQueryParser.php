@@ -43,6 +43,16 @@ class DataTablesQueryParser extends SimpleQueryParser
     }
 
     /**
+     * Set default dataTables filter operator
+     *
+     * @param string $operator
+     */
+    public function setDataTablesFilterOperator($operator)
+    {
+        $this->dataTablesFilterOperator = $operator;
+    }
+
+    /**
      * Get filters
      *
      * @return Collection

@@ -1,6 +1,9 @@
 Laravel Eloquent Filter
 ===
 
+[![Build Status](https://travis-ci.org/mnabialek/laravel-eloquent-filter.svg?branch=develop)](https://travis-ci.org/mnabialek/laravel-eloquent-filter)
+[![Coverage Status](https://coveralls.io/repos/github/mnabialek/laravel-eloquent-filter/badge.svg?branch=develop)](https://coveralls.io/github/mnabialek/laravel-eloquent-filter?branch=develop)
+
 This module lets you filter Eloquent data using query filters. You can apply WHERE filters and also set order of results
 
 ## Installation

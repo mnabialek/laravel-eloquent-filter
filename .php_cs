@@ -19,6 +19,7 @@ return Symfony\CS\Config\Config::create()
         'single_blank_line_before_namespace',
         'trailing_spaces',
         '-psr0',
+        'unalign_double_arrow',
     ])
     ->setUsingCache(true)
     ->finder($finder);

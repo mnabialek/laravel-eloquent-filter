@@ -67,7 +67,7 @@ Now, let's assume you display your users using `http://localhost/users` url.
 After those changes running:
  
 - `http://localhost/users?id=2` - should display user with id = 2 only
-- `http://localhost/users?id[]=2&id=5` - should display user with id = 2 and user with id = 5
+- `http://localhost/users?id[]=2&id[]=5` - should display user with id = 2 and user with id = 5
 - `http://localhost/users?sort=created_at,-email` - should display users with created_at ascending and email descending order.
  
  

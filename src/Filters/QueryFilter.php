@@ -230,7 +230,7 @@ abstract class QueryFilter implements QueryFilterContract
      * Applies filter for muitple values filter
      *
      * @param Filter $filter
-     */    
+     */
     protected function applyMultiValuesFilter(Filter $filter)
     {
         $field = $filter->getField();
@@ -265,11 +265,11 @@ abstract class QueryFilter implements QueryFilterContract
      */
     protected function applySingleValueFilter(Filter $filter)
     {
-        $value = ((array) $filter->getValue())[0];
+        $value = (array)$filter->getValue();
         $operator = strtoupper($filter->getOperator());
-        
+
         $this->query->where($filter->getField(), $operator,
-            $this->getQueryValue($value, $operator));
+            $this->getQueryValue($value[0], $operator));
     }
 
     /**

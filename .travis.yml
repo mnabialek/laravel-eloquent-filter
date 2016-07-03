@@ -5,3 +5,8 @@ php:
   - '7.0'
   - hhvm
   - nightly
+
+# Commands to be run before your environment runs.
+before_script:
+  - composer self-update
+  - composer install --no-interaction

@@ -32,6 +32,13 @@ abstract class QueryParser
     protected $ignoredFilters = [];
 
     /**
+     * Filter operator
+     *
+     * @var string
+     */
+    protected $filterOperator = '=';
+
+    /**
      * QueryParser constructor.
      *
      * @param Request $request
@@ -64,13 +71,13 @@ abstract class QueryParser
     }
 
     /**
-     * Get default filter operator
+     * Get filter operator
      *
      * @return string
      */
-    protected function getDefaultOperator()
+    protected function getFilterOperator()
     {
-        return '=';
+        return $this->filterOperator;
     }
 
     /**
@@ -85,6 +92,6 @@ abstract class QueryParser
         return !$this->ignoreEmptyFilters ? $input :
             $input->reject(function ($value) {
                 return empty($value);
-        });
+            });
     }
 }

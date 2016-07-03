@@ -12,10 +12,7 @@ class FilterableTest extends UnitTestCase
     /** @test */
     public function it_calls_filter_apply_and_return_its_result()
     {
-        $class = new class
-        {
-            use Filterable;
-        };
+        $class = new FilterableClass;
 
         $result = 'anything';
 
@@ -26,4 +23,11 @@ class FilterableTest extends UnitTestCase
 
         $this->assertEquals($result, $class->scopeFiltered($query, $filter));
     }
+}
+
+// stubs
+
+class FilterableClass
+{
+    use Filterable;
 }

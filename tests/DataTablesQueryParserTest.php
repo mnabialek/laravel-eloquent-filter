@@ -250,13 +250,7 @@ class DataTablesQueryParserTest extends UnitTestCase
         $request = m::mock('Illuminate\Http\Request');
 
         $parser =
-            new class($request, new Collection()) extends DataTablesQueryParser
-            {
-                public function getDataTablesFilterOperator()
-                {
-                    return $this->dataTablesFilterOperator;
-                }
-            };
+            new DataTablesQueryParserWithGetter($request, new Collection());
 
         $this->assertEquals('LIKE', $parser->getDataTablesFilterOperator());
         $parser->setDataTablesFilterOperator('=');
@@ -269,4 +263,12 @@ class DataTablesQueryParserTest extends UnitTestCase
 class IgnoreEmptyDataTablesQueryParser extends DataTablesQueryParser
 {
     protected $ignoreEmptyFilters = true;
+}
+
+class DataTablesQueryParserWithGetter extends DataTablesQueryParser
+{
+    public function getDataTablesFilterOperator()
+    {
+        return $this->dataTablesFilterOperator;
+    }
 }

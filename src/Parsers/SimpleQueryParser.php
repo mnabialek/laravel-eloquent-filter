@@ -46,19 +46,34 @@ class SimpleQueryParser extends QueryParser implements InputParser
     /**
      * Get filters
      *
+     * @param array $input
+     *
      * @return Collection
      */
-    public function getFilters()
+    public function getFilters(array $input = [])
     {
         $input = $this->collection->make(
-            $this->request->except($this->getIgnoredFilters()));
+            $input ?: $this->request->except($this->getIgnoredFilters()));
 
+        return $this->transformInputIntoFilters($input,
+            $this->getFilterOperator());
+    }
+
+    /**
+     * Transform input into filter
+     *
+     * @param Collection $input
+     * @param string $operator
+     *
+     * @return Collection
+     */
+    protected function transformInputIntoFilters(Collection $input, $operator)
+    {
         $filters = $this->collection->make();
 
         $this->filterEmptyValues($input)
-            ->each(function ($value, $field) use ($filters) {
-                $filters->push(new Filter($field, $value,
-                    $this->getDefaultOperator()));
+            ->each(function ($value, $field) use ($filters, $operator) {
+                $filters->push(new Filter($field, $value, $operator));
             });
 
         return $filters;

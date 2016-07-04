@@ -62,8 +62,7 @@ class SimpleQueryParserTest extends UnitTestCase
     }
 
     /** @test */
-    public function it_doest_not_include_filter_with_empty_value_when_empty_value_with_property_set(
-    )
+    public function it_doest_not_include_filter_with_empty_value_when_empty_value_with_property_set()
     {
         $request = m::mock('Illuminate\Http\Request');
         $request->shouldReceive('except')->once()->with(['sort'])->andReturn([

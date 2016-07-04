@@ -31,7 +31,7 @@ class Sort implements SortContract
         $this->setField($field);
         $this->setOrder($order);
     }
-    
+
     /**
      * {@inheritdoc}
      */

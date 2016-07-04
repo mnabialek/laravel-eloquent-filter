@@ -115,7 +115,7 @@ class QueryFilterTest extends UnitTestCase
                 '%' . $likeFilter->getValue() . '%');
 
         $qMock = m::mock('stdClass');
-        
+
         // this is tricky - we mark this as matched expectation only for 1st
         // call and only for 1st call we call user function
         $executed = false;
@@ -125,6 +125,7 @@ class QueryFilterTest extends UnitTestCase
                 call_user_func($callback, $qMock);
                 $executed = true;
             }
+
             return $result;
         });
 
@@ -153,7 +154,8 @@ class QueryFilterTest extends UnitTestCase
             strtoupper($multiOperatorFilter->getOperator()),
             $multiOperatorFilter->getValue()[1]);
 
-        $this->query->shouldReceive('where')->once()->with($nestedMultiOperator);
+        $this->query->shouldReceive('where')->once()
+            ->with($nestedMultiOperator);
 
         $filter->shouldReceive('applyDefaultFilters')->once()
             ->withNoArgs()->passthru();

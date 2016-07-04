@@ -5,7 +5,6 @@ namespace Mnabialek\LaravelEloquentFilter\Tests;
 use Illuminate\Support\Collection;
 use Mnabialek\LaravelEloquentFilter\Objects\Filter;
 use Mnabialek\LaravelEloquentFilter\Parsers\DataTablesQueryParser;
-use Mnabialek\LaravelEloquentFilter\Parsers\SimpleQueryParser;
 use Mnabialek\LaravelEloquentFilter\Objects\Sort;
 use Mockery as m;
 
@@ -113,8 +112,7 @@ class DataTablesQueryParserTest extends UnitTestCase
     }
 
     /** @test */
-    public function it_doest_not_include_filter_with_empty_value_when_empty_value_with_property_set(
-    )
+    public function it_doest_not_include_filter_with_empty_value_when_empty_value_with_property_set()
     {
         $request = m::mock('Illuminate\Http\Request');
 

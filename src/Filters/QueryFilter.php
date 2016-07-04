@@ -105,7 +105,7 @@ abstract class QueryFilter implements QueryFilterContract
         $this->query = $this->getBaseQuery($query);
 
         $this->filters->each(function ($filter) {
-            /** @var Filter $filter */
+            /* @var Filter $filter */
             $field = $filter->getField();
             $method = $this->getFilterMethod($field);
 
@@ -132,7 +132,7 @@ abstract class QueryFilter implements QueryFilterContract
         $this->query = $query;
 
         $this->sorts->each(function ($sort) {
-            /** @var Sort $sort */
+            /* @var Sort $sort */
             $field = $sort->getField();
             $method = $this->getSortMethod($field);
 

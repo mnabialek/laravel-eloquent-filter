@@ -1,0 +1,11 @@
+preset: laravel
+
+enabled:
+  - concat_with_spaces
+  
+disabled:
+  - phpdoc_summary
+  - unary_operator_spaces
+  - cast_spaces
+  - concat_without_spaces
+  - not_operator_with_successor_space

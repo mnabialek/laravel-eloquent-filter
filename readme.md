@@ -18,7 +18,7 @@ This module lets you filter Eloquent data using query filters. You can apply WHE
 Let's assume you want to allow to filter users data. By default you use `User` Eloquent model to get users. To enable filtering, open User model (by default `app/User.php` file) and add into it the following trait:
 
 ```php
-use Mnabialek\LaravelEloquentFilter\Traits\Filterable;
+use \Mnabialek\LaravelEloquentFilter\Traits\Filterable;
 ```
    
 just bellow opening class definition, so it should look something like this:
@@ -26,7 +26,7 @@ just bellow opening class definition, so it should look something like this:
 ```php
 class User extends Authenticatable
 {
-    use Mnabialek\LaravelEloquentFilter\Traits\Filterable;
+    use \Mnabialek\LaravelEloquentFilter\Traits\Filterable;
 ```    
 
 To allow filtering for this class, you need to also create implementation of `Mnabialek\LaravelEloquentFilter\Contracts\QueryFilter` interface. To do that create min `app/Filters` directory file with the following content:

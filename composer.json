@@ -1,8 +1,8 @@
 {
-    "name": "mnabialek/laravel-eloquent-filter",
+    "name": "trocho/laravel-eloquent-filter",
     "description": "Allows filtering Eloquent queries by input filters",
     "require": {
-        "laravel/framework": "5.*"
+        "laravel/framework": "^4.2"
     },
     "keywords": [
         "laravel",
@@ -16,6 +16,10 @@
         {
             "name": "mnabialek",
             "email": "gitre@nabialek.org"
+        },
+        {
+            "name": "Trocho",
+            "email": "patryk.trocho@gmail.com"
         }
     ],
     "autoload": {

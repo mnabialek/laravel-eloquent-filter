@@ -7,21 +7,21 @@ use Mnabialek\LaravelEloquentFilter\Contracts\Filter as FilterContract;
 class Filter implements FilterContract
 {
     /**
-     * Field
+     * Field.
      *
      * @var string
      */
     protected $field;
 
     /**
-     * Operator
+     * Operator.
      *
      * @var string
      */
     protected $operator;
 
     /**
-     * Value for field
+     * Value for field.
      *
      * @var mixed
      */

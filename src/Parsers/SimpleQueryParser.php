@@ -16,28 +16,28 @@ class SimpleQueryParser implements InputParser
     protected $request;
 
     /**
-     * Name of input that holds sorting order
+     * Name of input that holds sorting order.
      *
      * @var string
      */
     protected $sortName = 'sort';
 
     /**
-     * Separator for sort fields
+     * Separator for sort fields.
      *
      * @var string
      */
     protected $sortFieldsSeparator = ',';
 
     /**
-     * Sign to mark that field should be sorted in descending order
+     * Sign to mark that field should be sorted in descending order.
      *
      * @var string
      */
     protected $sortDescSign = '-';
 
     /**
-     * Ignore filters with empty values
+     * Ignore filters with empty values.
      *
      * @var bool
      */
@@ -61,7 +61,7 @@ class SimpleQueryParser implements InputParser
     }
 
     /**
-     * Get filters
+     * Get filters.
      *
      * @return Collection
      */
@@ -74,7 +74,7 @@ class SimpleQueryParser implements InputParser
 
         $input->filter(function ($value) {
             if ($this->ignoreEmptyFilters && is_string($value) &&
-                (string)$value == ''
+                (string) $value == ''
             ) {
                 return false;
             }
@@ -91,7 +91,7 @@ class SimpleQueryParser implements InputParser
     }
 
     /**
-     * Get parameters for sorting
+     * Get parameters for sorting.
      *
      * @return Collection
      */

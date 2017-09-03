@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 interface QueryFilter
 {
     /**
-     * Apply all filters (both conditions and sorts) to given query
+     * Apply all filters (both conditions and sorts) to given query.
      *
      * @param Builder $query
      *
@@ -16,7 +16,7 @@ interface QueryFilter
     public function apply($query);
 
     /**
-     * Apply condition filters only to given query
+     * Apply condition filters only to given query.
      *
      * @param Builder $query
      *
@@ -25,7 +25,7 @@ interface QueryFilter
     public function applyFilters($query);
 
     /**
-     * Apply sorting filters only to given query
+     * Apply sorting filters only to given query.
      *
      * @param Builder $query
      *

@@ -12,8 +12,7 @@ class FilterableTest extends UnitTestCase
     /** @test */
     public function it_calls_filter_apply_and_return_its_result()
     {
-        $class = new class
-        {
+        $class = new class() {
             use Filterable;
         };
 

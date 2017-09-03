@@ -1,4 +1,4 @@
-#Laravel Eloquent Filter
+# Laravel Eloquent Filter
 
 [![Build Status](https://travis-ci.org/mnabialek/laravel-eloquent-filter.svg?branch=master)](https://travis-ci.org/mnabialek/laravel-eloquent-filter)
 [![Coverage Status](https://coveralls.io/repos/github/mnabialek/laravel-eloquent-filter/badge.svg)](https://coveralls.io/github/mnabialek/laravel-eloquent-filter)

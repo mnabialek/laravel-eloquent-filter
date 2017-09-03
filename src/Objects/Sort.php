@@ -7,14 +7,14 @@ use Mnabialek\LaravelEloquentFilter\Contracts\Sort as SortContract;
 class Sort implements SortContract
 {
     /**
-     * Sort field
+     * Sort field.
      *
      * @var string
      */
     protected $field;
 
     /**
-     * Order for field
+     * Order for field.
      *
      * @var string
      */
@@ -31,7 +31,7 @@ class Sort implements SortContract
         $this->setField($field);
         $this->setOrder($order);
     }
-    
+
     /**
      * {@inheritdoc}
      */

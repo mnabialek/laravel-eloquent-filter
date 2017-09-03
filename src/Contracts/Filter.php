@@ -5,42 +5,42 @@ namespace Mnabialek\LaravelEloquentFilter\Contracts;
 interface Filter
 {
     /**
-     * Get filter field
+     * Get filter field.
      *
      * @return string
      */
     public function getField();
 
     /**
-     * Set filter field
+     * Set filter field.
      *
      * @param string $field
      */
     public function setField($field);
 
     /**
-     * Get filter operator
+     * Get filter operator.
      *
      * @return string
      */
     public function getOperator();
 
     /**
-     * Set filter operator
+     * Set filter operator.
      *
      * @param string $operator
      */
     public function setOperator($operator);
 
     /**
-     * Get filter field value
+     * Get filter field value.
      *
      * @return mixed
      */
     public function getValue();
 
     /**
-     * Set filter field value
+     * Set filter field value.
      *
      * @param mixed $value
      */

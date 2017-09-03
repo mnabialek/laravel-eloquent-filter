@@ -2,13 +2,13 @@
 
 namespace Mnabialek\LaravelEloquentFilter\Filters;
 
-use Illuminate\Contracts\Container\Container;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Container\Container;
+use Mnabialek\LaravelEloquentFilter\Contracts\Sort;
 use Mnabialek\LaravelEloquentFilter\Contracts\Filter;
 use Mnabialek\LaravelEloquentFilter\Contracts\InputParser;
 use Mnabialek\LaravelEloquentFilter\Contracts\QueryFilter as QueryFilterContract;
-use Mnabialek\LaravelEloquentFilter\Contracts\Sort;
 
 abstract class QueryFilter implements QueryFilterContract
 {
@@ -38,14 +38,14 @@ abstract class QueryFilter implements QueryFilterContract
     protected $query;
 
     /**
-     * Array of allowed filters to be used
+     * Array of allowed filters to be used.
      *
      * @var array
      */
     protected $simpleFilters = [];
 
     /**
-     * Array of allowed sorting to be used
+     * Array of allowed sorting to be used.
      *
      * @var array
      */
@@ -60,7 +60,7 @@ abstract class QueryFilter implements QueryFilterContract
      * @var Collection
      */
     protected $collection;
-    
+
     /**
      * @var Container
      */
@@ -151,7 +151,7 @@ abstract class QueryFilter implements QueryFilterContract
     }
 
     /**
-     * Get custom filter method name
+     * Get custom filter method name.
      *
      * @param string $field
      *
@@ -163,7 +163,7 @@ abstract class QueryFilter implements QueryFilterContract
     }
 
     /**
-     * Get custom sort method name
+     * Get custom sort method name.
      *
      * @param string $field
      *
@@ -177,7 +177,7 @@ abstract class QueryFilter implements QueryFilterContract
     /**
      * Apply default filters after applying any other filters. In this method
      * you can use $appliedFilters property to verify whether filter for
-     * selected field has been already applied or not
+     * selected field has been already applied or not.
      */
     protected function applyDefaultFilters()
     {
@@ -186,14 +186,14 @@ abstract class QueryFilter implements QueryFilterContract
     /**
      * Apply default sorts after applying any other sorts. In this method
      * you can use $appliedSorts property to verify whether sorts for
-     * selected field has been already applied or not
+     * selected field has been already applied or not.
      */
     protected function applyDefaultSorts()
     {
     }
 
     /**
-     * Apply simple filter
+     * Apply simple filter.
      *
      * @param Filter $filter
      */
@@ -209,7 +209,7 @@ abstract class QueryFilter implements QueryFilterContract
     }
 
     /**
-     * Apply simple sort
+     * Apply simple sort.
      *
      * @param Sort $sort
      */

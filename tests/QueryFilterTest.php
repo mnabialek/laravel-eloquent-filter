@@ -2,10 +2,10 @@
 
 namespace Mnabialek\LaravelEloquentFilter\Tests;
 
-use Mnabialek\LaravelEloquentFilter\Filters\QueryFilter;
-use Mnabialek\LaravelEloquentFilter\Objects\Filter;
-use Mnabialek\LaravelEloquentFilter\Objects\Sort;
 use Mockery as m;
+use Mnabialek\LaravelEloquentFilter\Objects\Sort;
+use Mnabialek\LaravelEloquentFilter\Objects\Filter;
+use Mnabialek\LaravelEloquentFilter\Filters\QueryFilter;
 
 class QueryFilterTest extends UnitTestCase
 {
@@ -72,9 +72,9 @@ class QueryFilterTest extends UnitTestCase
                 $statusFilter,
             ]));
         $this->parser->shouldReceive('getSorts')->once();
-        
+
         $filter = $this->createFilterMock('NotEmptyQueryFilter');
-        
+
         $filter->shouldReceive('applyId')->with($idFilter->getValue());
         $filter->shouldReceive('applySimpleFilter')->once()->with($emailFilter)
             ->passthru();
@@ -140,9 +140,9 @@ class QueryFilterTest extends UnitTestCase
             $surnameSort,
             $otherSort,
         ]));
-        
+
         $filter = $this->createFilterMock('NotEmptyQueryFilter');
-        
+
         $filter->shouldReceive('applySortCreatedAt')
             ->with($createdAtSort->getOrder());
         $filter->shouldReceive('applySimpleSort')->once()->with($nameSort)
@@ -182,7 +182,7 @@ class QueryFilterTest extends UnitTestCase
         $filter->__construct($this->parser, collect(), $this->app);
 
         return $filter;
-    }    
+    }
 }
 
 // stubs

@@ -8,7 +8,7 @@ use Mnabialek\LaravelEloquentFilter\Contracts\QueryFilter;
 trait Filterable
 {
     /**
-     * Apply all filters to given query
+     * Apply all filters to given query.
      *
      * @param Builder $query
      * @param QueryFilter $filter

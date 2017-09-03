@@ -2,10 +2,10 @@
 
 namespace Mnabialek\LaravelEloquentFilter\Tests;
 
-use Mnabialek\LaravelEloquentFilter\Filters\QueryFilter;
-use Mnabialek\LaravelEloquentFilter\Objects\Filter;
-use Mnabialek\LaravelEloquentFilter\Objects\Sort;
 use Mockery as m;
+use Mnabialek\LaravelEloquentFilter\Objects\Sort;
+use Mnabialek\LaravelEloquentFilter\Objects\Filter;
+use Mnabialek\LaravelEloquentFilter\Filters\QueryFilter;
 
 class QueryFilterTest extends UnitTestCase
 {

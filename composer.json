@@ -32,6 +32,6 @@
         "phpunit/phpunit": "^5.4",
         "mockery/mockery": "^1.0",
         "friendsofphp/php-cs-fixer": "^2.5",
-        "php-coveralls/php-coveralls": "^1.0"
+        "php-coveralls/php-coveralls": "^2.0"
     }
 }

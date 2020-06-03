@@ -5,6 +5,7 @@ namespace Mnabialek\LaravelEloquentFilter\Filters;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Contracts\Container\Container;
+use Illuminate\Support\Str;
 use Mnabialek\LaravelEloquentFilter\Contracts\Sort;
 use Mnabialek\LaravelEloquentFilter\Contracts\Filter;
 use Mnabialek\LaravelEloquentFilter\Contracts\InputParser;
@@ -159,7 +160,7 @@ abstract class QueryFilter implements QueryFilterContract
      */
     protected function getFilterMethod($field)
     {
-        return 'apply' . studly_case(str_replace('.', ' ', $field));
+        return 'apply' . Str::studly(str_replace('.', ' ', $field));
     }
 
     /**
@@ -171,7 +172,7 @@ abstract class QueryFilter implements QueryFilterContract
      */
     protected function getSortMethod($field)
     {
-        return 'applySort' . studly_case(str_replace('.', ' ', $field));
+        return 'applySort' . Str::studly(str_replace('.', ' ', $field));
     }
 
     /**

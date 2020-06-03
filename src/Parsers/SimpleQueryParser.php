@@ -4,6 +4,7 @@ namespace Mnabialek\LaravelEloquentFilter\Parsers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Mnabialek\LaravelEloquentFilter\Objects\Sort;
 use Mnabialek\LaravelEloquentFilter\Objects\Filter;
 use Mnabialek\LaravelEloquentFilter\Contracts\InputParser;
@@ -109,7 +110,7 @@ class SimpleQueryParser implements InputParser
             $s = new Sort();
             $order = 'ASC';
 
-            if (starts_with($field, $this->sortDescSign)) {
+            if (Str::startsWith($field, $this->sortDescSign)) {
                 $order = 'DESC';
                 $field = mb_substr($field, mb_strlen($this->sortDescSign));
             }

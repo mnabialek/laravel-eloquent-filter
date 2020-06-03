@@ -5,9 +5,9 @@ namespace Mnabialek\LaravelEloquentFilter\Parsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use Mnabialek\LaravelEloquentFilter\Objects\Sort;
-use Mnabialek\LaravelEloquentFilter\Objects\Filter;
 use Mnabialek\LaravelEloquentFilter\Contracts\InputParser;
+use Mnabialek\LaravelEloquentFilter\Objects\Filter;
+use Mnabialek\LaravelEloquentFilter\Objects\Sort;
 
 class SimpleQueryParser implements InputParser
 {

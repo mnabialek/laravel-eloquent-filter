@@ -2,10 +2,10 @@
 
 namespace Mnabialek\LaravelEloquentFilter\Tests;
 
-use Mockery as m;
 use Illuminate\Database\Eloquent\Builder;
-use Mnabialek\LaravelEloquentFilter\Traits\Filterable;
 use Mnabialek\LaravelEloquentFilter\Filters\SimpleQueryFilter;
+use Mnabialek\LaravelEloquentFilter\Traits\Filterable;
+use Mockery as m;
 
 class FilterableTest extends UnitTestCase
 {

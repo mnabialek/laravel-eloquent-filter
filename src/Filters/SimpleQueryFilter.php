@@ -2,8 +2,8 @@
 
 namespace Mnabialek\LaravelEloquentFilter\Filters;
 
-use Illuminate\Support\Collection;
 use Illuminate\Contracts\Container\Container;
+use Illuminate\Support\Collection;
 use Mnabialek\LaravelEloquentFilter\Parsers\SimpleQueryParser;
 
 abstract class SimpleQueryFilter extends QueryFilter

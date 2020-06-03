@@ -2,14 +2,14 @@
 
 namespace Mnabialek\LaravelEloquentFilter\Filters;
 
-use Illuminate\Support\Collection;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Contracts\Container\Container;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use Mnabialek\LaravelEloquentFilter\Contracts\Sort;
 use Mnabialek\LaravelEloquentFilter\Contracts\Filter;
 use Mnabialek\LaravelEloquentFilter\Contracts\InputParser;
 use Mnabialek\LaravelEloquentFilter\Contracts\QueryFilter as QueryFilterContract;
+use Mnabialek\LaravelEloquentFilter\Contracts\Sort;
 
 abstract class QueryFilter implements QueryFilterContract
 {
